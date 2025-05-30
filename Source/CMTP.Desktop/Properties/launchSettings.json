@@ -1,0 +1,8 @@
+{
+	"profiles": {
+		"FCGR.Desktop": {
+			"commandName": "Project",
+			"hotReloadEnabled": false
+		}
+	}
+}

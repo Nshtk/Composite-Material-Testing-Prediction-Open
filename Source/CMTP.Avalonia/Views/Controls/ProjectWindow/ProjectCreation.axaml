@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="560" d:DesignHeight="200"
+			 xmlns:viewmodels_windows="using:CMTP.Avalonia.ViewModels.Windows"
+			 x:DataType="viewmodels_windows:ViewModelProjectWindow"
+			 x:Class="CMTP.Avalonia.Views.Controls.Project.ProjectCreation"
+			 Width="560" Height="200">
+	<Design.DataContext>
+		<viewmodels_windows:ViewModelProjectWindow/>
+	</Design.DataContext>
+
+	<Panel>
+		<Button ZIndex="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0" Width="46" Height="28"
+				Command="{Binding Command_Switch_To_Project_Management_View}">
+			<Button.Content>
+				<TextBlock Text="←" FontSize="15" FontWeight="SemiBold"/>
+			</Button.Content>
+		</Button>
+		<HeaderedContentControl Header="Свойства проекта" Margin="0,10,9,10">
+			<HeaderedContentControl.Styles>
+				<Style Selector="TextBlock">
+					<Setter Property="Margin" Value="40,0,0,0"/>
+				</Style>
+			</HeaderedContentControl.Styles>
+			<Grid RowDefinitions="Auto,Auto,Auto,*" ColumnDefinitions="Auto,*,35">
+				<Grid.Styles>
+					<Style Selector="TextBox">
+						<Setter Property="Margin" Value="5,0,6,0"/>
+						<Setter Property="CornerRadius" Value="3"/>
+					</Style>
+					<Style Selector="TextBlock">
+						<Setter Property="VerticalAlignment" Value="Center"/>
+						<Setter Property="Margin" Value="10,0,0,0"/>
+					</Style>
+					<Style Selector="Button.Directory">
+						<Setter Property="Margin" Value="0,0,6,0"/>
+						<Setter Property="Content" Value="..."/>
+					</Style>
+				</Grid.Styles>
+				<!--Row 0-->
+				<TextBox Name="textBox_title" Grid.Row="0" Grid.ColumnSpan="3" Margin="6,10,6,10"
+						 Watermark="Введите название проекта" TextAlignment="Center" Text="{Binding Project_Title, Mode=OneWayToSource}"/> <!--NOTE can't use converter for changing border color bc can't return default border color-->
+				<!--Row 1-->
+				<TextBlock Grid.Row="1" Text="Директория проекта:"/>
+				<TextBox Name="textBox_path" Grid.Row="1" Grid.Column="1"
+						 Text="{Binding Project_Path, Mode=TwoWay}"/>
+				<Button Grid.Row="1" Grid.Column="2" Classes="Directory" Command="{Binding Command_Locate_Directory}"/>
+				<!--Row 2-->
+				<TextBlock Grid.Row="2" Text="Директория записей:"/>
+				<TextBox Name="textBox_recordings_path" Grid.Row="2" Grid.Column="1"
+						 Text="{Binding Recordings_Path, Mode=TwoWay}"/>
+				<Button Grid.Row="2" Grid.Column="2" Classes="Directory" Command="{Binding Command_Locate_Directory}"/>
+				<!--Row 3-->
+				<Button Grid.Row="3" Grid.ColumnSpan="3" Height="35" Margin="5,10,5,10"
+						Command="{Binding Command_Save_And_Close}">
+					<Button.Content>
+						<TextBlock Text="Сохранить" FontSize="14" FontWeight="SemiBold"/>
+					</Button.Content>
+				</Button>
+			</Grid>
+		</HeaderedContentControl>
+	</Panel>
+</UserControl>

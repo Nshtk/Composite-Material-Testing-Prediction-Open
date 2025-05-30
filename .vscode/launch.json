@@ -1,0 +1,32 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Client Debug",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "dotnet: build",
+			"program": "${workspaceFolder}/Artifacts/bin/CMTP.Desktop/debug/CMTP.Desktop.dll",
+		},
+		{
+			"name": "Server Debug",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "dotnet: build",
+			"program": "${workspaceFolder}/../../Fatigue-Crack-Growth-Rates/Artifacts/bin/FCGR.Server/debug/FCGR.Server.dll",
+			"args": ["-port 5001", "-ip_version 6"],
+			"console": "integratedTerminal"
+		},
+	],
+	"compounds": [
+		{
+			"name": "Server/Client",
+			"configurations": [
+				"Client Debug",
+				"Server Debug"
+			],
+			"preLaunchTask": "dotnet: build",
+			"stopAll": true
+		}
+	]
+}

@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:viewmodels_windows="using:CMTP.Avalonia.ViewModels.Windows"
+			 xmlns:views_controls_project="using:CMTP.Avalonia.Views.Controls.Project"
+			 mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="90"
+			 x:DataType="viewmodels_windows:ViewModelProjectWindow"
+			 x:Class="CMTP.Avalonia.Views.Controls.Project.ProjectManagement"
+			 MinWidth="400" MinHeight="90"
+			 Width="400" Height="90">
+	<Design.DataContext>
+		<viewmodels_windows:ViewModelProjectWindow/>
+	</Design.DataContext>
+	
+	<StackPanel Spacing="10" Margin="10,15,10,0">
+		<Button Content="Создать новый проект" Command="{Binding Command_Switch_To_Project_Creation_View}"/>
+		<Button Name="button_open_project" Content="Открыть сущестующий проект" Command="{Binding Command_Open_Project}"/>
+	</StackPanel>
+</UserControl>

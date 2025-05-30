@@ -1,0 +1,20 @@
+syntax="proto3";
+
+import "Common/Utilities.proto";
+
+option csharp_namespace="FCGR.Proto.Streaming";
+package streaming;
+
+message FrameRequest 
+{
+	bytes frame=1;
+}
+message FrameReply 
+{
+	bytes frame=1;
+}
+
+service FrameStreamingService
+{
+	rpc sendFrame(stream FrameRequest) returns(stream FrameReply);
+}

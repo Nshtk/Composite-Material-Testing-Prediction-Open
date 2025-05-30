@@ -1,0 +1,241 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9E98D5C0-FBC3-3EE8-01AA-0C4FB717FD41}|FCGR.Client\\FCGR.Client.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\fcgr.client\\grpc\\streaming\\grpcserviceframestreaming.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E98D5C0-FBC3-3EE8-01AA-0C4FB717FD41}|FCGR.Client\\FCGR.Client.csproj|solutionrelative:fcgr.client\\grpc\\streaming\\grpcserviceframestreaming.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2DC8EED-F1FE-8AE4-CB1C-736C5F4A2184}|FCGR.Server\\FCGR.Server.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\fcgr.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2DC8EED-F1FE-8AE4-CB1C-736C5F4A2184}|FCGR.Server\\FCGR.Server.csproj|solutionrelative:fcgr.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E98D5C0-FBC3-3EE8-01AA-0C4FB717FD41}|FCGR.Client\\FCGR.Client.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\fcgr.client\\grpc\\general\\grpcclientuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E98D5C0-FBC3-3EE8-01AA-0C4FB717FD41}|FCGR.Client\\FCGR.Client.csproj|solutionrelative:fcgr.client\\grpc\\general\\grpcclientuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\cmtp.avalonia\\views\\windows\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
+      "RelativeMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|solutionrelative:cmtp.avalonia\\views\\windows\\mainwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\cmtp.avalonia\\viewmodels\\controls\\mainwindow\\viewmodelvideoform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|solutionrelative:cmtp.avalonia\\viewmodels\\controls\\mainwindow\\viewmodelvideoform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\cmtp.avalonia\\models\\testingmachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|solutionrelative:cmtp.avalonia\\models\\testingmachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\cmtp.avalonia\\models\\sensorstream.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|solutionrelative:cmtp.avalonia\\models\\sensorstream.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\cmtp.avalonia\\views\\controls\\mainwindow\\videoform.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|solutionrelative:cmtp.avalonia\\views\\controls\\mainwindow\\videoform.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|c:\\users\\nshtk\\documents\\git\\c#\\diploma-masters\\composite-material-testing-prediction-open\\source\\cmtp.avalonia\\viewmodels\\windows\\viewmodelmainwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0467A344-4E39-4E8D-AEE3-960709935A66}|CMTP.Avalonia\\CMTP.Avalonia.csproj|solutionrelative:cmtp.avalonia\\viewmodels\\windows\\viewmodelmainwindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\AIModelBaseXGBoostSharp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\Processors\\Testing\\TestingProcessorAI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\CrackForecasting\\AIModelCrackForecastingGradientBoosting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 1648,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\FCGR.Server\\Program.cs",
+              "RelativeDocumentMoniker": "FCGR.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\FCGR.Server\\Program.cs",
+              "RelativeToolTip": "FCGR.Server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T00:11:35.107Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GRPCServiceFrameStreaming.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\FCGR.Client\\GRPC\\Streaming\\GRPCServiceFrameStreaming.cs",
+              "RelativeDocumentMoniker": "FCGR.Client\\GRPC\\Streaming\\GRPCServiceFrameStreaming.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\FCGR.Client\\GRPC\\Streaming\\GRPCServiceFrameStreaming.cs",
+              "RelativeToolTip": "FCGR.Client\\GRPC\\Streaming\\GRPCServiceFrameStreaming.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAACwAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T00:09:31.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GRPCClientUserService.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\FCGR.Client\\GRPC\\General\\GRPCClientUserService.cs",
+              "RelativeDocumentMoniker": "FCGR.Client\\GRPC\\General\\GRPCClientUserService.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\FCGR.Client\\GRPC\\General\\GRPCClientUserService.cs",
+              "RelativeToolTip": "FCGR.Client\\GRPC\\General\\GRPCClientUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T00:09:10.51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ViewModelMainWindow.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\ViewModels\\Windows\\ViewModelMainWindow.cs",
+              "RelativeDocumentMoniker": "CMTP.Avalonia\\ViewModels\\Windows\\ViewModelMainWindow.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\ViewModels\\Windows\\ViewModelMainWindow.cs",
+              "RelativeToolTip": "CMTP.Avalonia\\ViewModels\\Windows\\ViewModelMainWindow.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAWwIkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T15:11:49.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ViewModelVideoForm.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\ViewModels\\Controls\\MainWindow\\ViewModelVideoForm.cs",
+              "RelativeDocumentMoniker": "CMTP.Avalonia\\ViewModels\\Controls\\MainWindow\\ViewModelVideoForm.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\ViewModels\\Controls\\MainWindow\\ViewModelVideoForm.cs",
+              "RelativeToolTip": "CMTP.Avalonia\\ViewModels\\Controls\\MainWindow\\ViewModelVideoForm.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAWwK0AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T15:11:57.745Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "VideoForm.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\Views\\Controls\\MainWindow\\VideoForm.axaml.cs",
+              "RelativeDocumentMoniker": "CMTP.Avalonia\\Views\\Controls\\MainWindow\\VideoForm.axaml.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\Views\\Controls\\MainWindow\\VideoForm.axaml.cs",
+              "RelativeToolTip": "CMTP.Avalonia\\Views\\Controls\\MainWindow\\VideoForm.axaml.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAACgAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T10:30:56.245Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1752,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AIModelBaseXGBoostSharp.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\AIModelBaseXGBoostSharp.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\AIModelBaseXGBoostSharp.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\AIModelBaseXGBoostSharp.cs",
+              "RelativeToolTip": "..\\..\\..\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\AIModelBaseXGBoostSharp.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T19:25:02.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SensorStream.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\Models\\SensorStream.cs",
+              "RelativeDocumentMoniker": "CMTP.Avalonia\\Models\\SensorStream.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\Models\\SensorStream.cs",
+              "RelativeToolTip": "CMTP.Avalonia\\Models\\SensorStream.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T10:27:41.065Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TestingMachine.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\Models\\TestingMachine.cs",
+              "RelativeDocumentMoniker": "CMTP.Avalonia\\Models\\TestingMachine.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\Models\\TestingMachine.cs",
+              "RelativeToolTip": "CMTP.Avalonia\\Models\\TestingMachine.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEMAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T15:50:35.602Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TestingProcessorAI.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\Processors\\Testing\\TestingProcessorAI.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\Processors\\Testing\\TestingProcessorAI.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\Processors\\Testing\\TestingProcessorAI.cs",
+              "RelativeToolTip": "..\\..\\..\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\Processors\\Testing\\TestingProcessorAI.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACUAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T15:38:39.148Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AIModelCrackForecastingGradientBoosting.cs",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\CrackForecasting\\AIModelCrackForecastingGradientBoosting.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\CrackForecasting\\AIModelCrackForecastingGradientBoosting.cs",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\CrackForecasting\\AIModelCrackForecastingGradientBoosting.cs",
+              "RelativeToolTip": "..\\..\\..\\Fatigue-Crack-Growth-Rates\\Source\\FCGR.Common\\Libraries\\AI\\Models\\CrackForecasting\\AIModelCrackForecastingGradientBoosting.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAPgAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T18:58:02.726Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "0b080153-cda2-40f9-9bab-5537d21b9600",
+        "Display": 1,
+        "X": -386,
+        "Y": 234,
+        "Width": 886,
+        "Height": 805,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\Views\\Windows\\MainWindow.axaml",
+              "RelativeDocumentMoniker": "CMTP.Avalonia\\Views\\Windows\\MainWindow.axaml",
+              "ToolTip": "C:\\Users\\nshtk\\Documents\\Git\\C#\\Diploma-Masters\\Composite-Material-Testing-Prediction-Open\\Source\\CMTP.Avalonia\\Views\\Windows\\MainWindow.axaml",
+              "RelativeToolTip": "CMTP.Avalonia\\Views\\Windows\\MainWindow.axaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-28T17:10:17.515Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<PackageReference Include="ClosedXML" Version="0.105.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="DeepCloner" Version="0.10.4" />
+		<PackageReference Include="Emgu.CV" Version="4.10.0.5680" />
+		<PackageReference Include="Emgu.CV.runtime.windows" Version="4.10.0.5680" />
+		<PackageReference Include="Microsoft.ML" Version="4.0.2" />
+		<PackageReference Include="Microsoft.ML.TimeSeries" Version="4.0.2" />
+		<PackageReference Include="SharpLearning.Containers" Version="0.31.8" />
+		<PackageReference Include="SharpLearning.Metrics" Version="0.31.8" />
+		<PackageReference Include="SharpLearning.RandomForest" Version="0.31.8" />
+		<PackageReference Include="System.IO.Ports" Version="9.0.5" />
+		<PackageReference Include="System.Management" Version="9.0.5" />
+		<PackageReference Include="TorchSharp-cuda-linux" Version="0.105.0" />
+		<PackageReference Include="TorchSharp-cuda-windows" Version="0.105.0" />
+		<PackageReference Include="XGBoostSharp" Version="0.5.2" />
+	</ItemGroup>
+</Project>

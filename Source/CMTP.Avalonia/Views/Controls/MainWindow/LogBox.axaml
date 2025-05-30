@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:views_controls_main="clr-namespace:CMTP.Avalonia.Views.Controls.MainWindow"
+			 x:Class="CMTP.Avalonia.Views.Controls.MainWindow.LogBox"
+			 x:DataType="views_controls_main:LogBox">
+
+	<Border ClipToBounds="False" BorderThickness="4" BorderBrush="{DynamicResource brush_control_background}" CornerRadius="5">
+		<ScrollViewer Name="scrollViewer" Background="{DynamicResource brush_control_background_special}">
+			<StackPanel Name="stackPanel_log" Margin="7,5,0,0"/>		<!--NOTE VirtualizingStackpanel not working-->
+		</ScrollViewer>
+	</Border>
+</UserControl>

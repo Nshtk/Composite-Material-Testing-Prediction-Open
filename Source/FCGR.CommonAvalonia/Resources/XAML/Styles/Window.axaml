@@ -1,0 +1,36 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Styles.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="../ResourcesTheme.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Styles.Resources>
+
+	<Style Selector="Window.secondary">
+		<Setter Property="CanResize" Value="False"/>
+		<Setter Property="WindowStartupLocation" Value="CenterOwner"/>
+		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True"/>
+		<Setter Property="ExtendClientAreaChromeHints" Value="SystemChrome"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Grid RowDefinitions="Auto,*" ColumnDefinitions="*,Auto,10" ClipToBounds="True"> <!--SystemChrome buttons are shifted to left-->	<!--REVIEW? ZIndex of BackgroundProperty prevents SystemChrome buttons from appearing?-->
+						<Border ZIndex="-1" IsHitTestVisible="False" Background="{DynamicResource brush_background}" BorderBrush="{DynamicResource brush_background}">
+							<TextBlock IsHitTestVisible="False" Text="{TemplateBinding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14.5" FontWeight="SemiBold" FontFamily="SegoeUI"/>
+						</Border>
+						<Border Height="30" Width="135" Opacity="0.5" Grid.Column="1" Margin="0,-1,0,0" IsEnabled="False" Background="{DynamicResource brush_control_background_special_2}"/> <!--SystemChrome Mega HACK-->
+						<Rectangle Grid.Column="2" Fill="{DynamicResource brush_background}"/>
+						<Border Grid.Row="1" Grid.ColumnSpan="3" ClipToBounds="True" Background="{TemplateBinding Background}" BorderBrush="{DynamicResource brush_background}">
+							<ContentPresenter VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="{TemplateBinding Content}"/>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</Styles>
+
+

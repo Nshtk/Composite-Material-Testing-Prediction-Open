@@ -1,0 +1,14 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Styles.Resources>
+		<ResourceDictionary>
+		  <ResourceDictionary.MergedDictionaries>
+			<ResourceInclude Source="../ResourcesTheme.axaml"/>
+		  </ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	 </Styles.Resources>
+
+	<Style Selector="SplitView">
+		<Setter Property="PaneBackground" Value="{DynamicResource brush_control_background_special_2}"/>
+	</Style>
+</Styles>

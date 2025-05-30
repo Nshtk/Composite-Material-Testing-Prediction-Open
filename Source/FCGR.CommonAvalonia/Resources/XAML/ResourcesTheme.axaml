@@ -1,0 +1,41 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<ResourceDictionary.ThemeDictionaries>
+		<ResourceDictionary x:Key='Light'>
+			<SolidColorBrush x:Key='brush_background' Color='White'/>
+			<SolidColorBrush x:Key='brush_foreground' Color='#282828'/> <!--Soft black--> 
+			<SolidColorBrush x:Key='brush_control_background' Color='DodgerBlue'/>
+			<SolidColorBrush x:Key='brush_control_foreground' Color='Black'/>
+			<SolidColorBrush x:Key='brush_control_background_special' Color='#9c9c9c'/> <!--Gray-->
+			<SolidColorBrush x:Key='brush_control_background_special_2' Color='LightGray'/>
+			<SolidColorBrush x:Key='brush_control_background_special_3' Color='LightGray'/>
+			<LinearGradientBrush x:Key='brush_gradient_background_to_special_2' StartPoint="0%,0%" EndPoint="30%,30%">
+				<LinearGradientBrush.GradientStops>
+					<GradientStop Offset="0" Color="White"/>
+					<GradientStop Offset="1" Color="LightGray"/>
+				</LinearGradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<SolidColorBrush x:Key='brush_control_background_interactive' Color='LightGray'/>
+			<SolidColorBrush x:Key='brush_control_background_interactive_selected' Color='DodgerBlue'/>
+			<SolidColorBrush x:Key='brush_control_background_interactive_selected_focus' Color='LightBlue'/>
+		</ResourceDictionary>
+		<ResourceDictionary x:Key='Dark'>
+			<SolidColorBrush x:Key='brush_background' Color='#282828'/> <!--Soft black--> <!--Window-->
+			<SolidColorBrush x:Key='brush_control_background' Color='Gray'/>
+			<SolidColorBrush x:Key='brush_control_foreground' Color='White'/>	<!--Control's content-->
+			<SolidColorBrush x:Key='brush_control_background_special' Color='#3b3b3b'/> <!--Dark gray--> <!--LogBox-->
+			<SolidColorBrush x:Key='brush_control_background_special_2' Color='Black'/>	<!--Pane-->
+			<SolidColorBrush x:Key='brush_control_background_special_3' Color='#3b3b3b'/>	<!--GridSplitter-->
+			<LinearGradientBrush x:Key='brush_gradient_background_to_special_2' StartPoint="15%,0%" EndPoint="100%,100%">
+				<LinearGradientBrush.GradientStops>
+					<GradientStop Offset="0" Color="#282828"/>
+					<GradientStop Offset="1" Color="Black"/>
+				</LinearGradientBrush.GradientStops>
+			</LinearGradientBrush>
+			<SolidColorBrush x:Key='brush_control_background_interactive' Color='Gray'/> <!--VideoForm tab control-->
+			<SolidColorBrush x:Key='brush_control_background_interactive_selected' Color='#5C788D'/>	<!--Grayed blue-->
+			<SolidColorBrush x:Key='brush_control_background_interactive_selected_focus' Color='CornflowerBlue'/>
+		</ResourceDictionary>
+	</ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

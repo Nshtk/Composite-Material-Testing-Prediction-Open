@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:scott_plot="using:ScottPlot.Avalonia"
+			 xmlns:views_controls_main_window="using:CMTP.Avalonia.Views.Controls.MainWindow"
+			 xmlns:viewmodels_controls="using:CMTP.Avalonia.ViewModels.Controls"
+			 xmlns:wpf_mvvm="using:FCGR.CommonAvalonia.MVVM"
+			 xmlns:wpf_mvvm_controls="using:FCGR.CommonAvalonia.MVVM.Controls"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="viewmodels_controls:ViewModelVideoForm"
+			 x:Class="CMTP.Avalonia.Views.Controls.MainWindow.VideoForm">
+
+	<UserControl.Resources>
+		<wpf_mvvm:ConverterObjectBool x:Key="converter_object_bool"/>
+		<wpf_mvvm:ConverterBoolColor x:Key="converter_bool_color"/>
+		<wpf_mvvm:MultiConverterBoolsAnd x:Key="multiconverter_bools_and"/>
+	</UserControl.Resources>
+
+	<TabControl DockPanel.Dock="Top" Name="tabControl">
+		<!--Tab 0-->
+		<TabItem Header="Видео">
+			<Grid>
+				<Border Name="border" DockPanel.Dock="Left" ZIndex="1"
+					BorderThickness="4" CornerRadius="4" Background="Transparent" BorderBrush="Gray">
+					<Border.Styles>
+						<Style Selector="MenuItem" x:DataType="wpf_mvvm_controls:MenuActionBase">
+							<Setter Property="Header" Value="{Binding Title}"/>
+							<Setter Property="Icon">
+								<Setter.Value>
+									<Template>
+										<Image Source="{Binding Icon}" />
+									</Template>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="IsVisible" Value="{Binding Is_Visible}"/>
+							<Setter Property="ItemsSource" Value="{Binding Actions_Submenu}"/>
+							<Setter Property="CommandParameter" Value="{ReflectionBinding Command_Parameter}"/>
+							<!--NOTE Order matters! If the Command binding is resolved earlier than CommandParamater, object passed in canExecute() can be null.-->
+							<Setter Property="Command" Value="{ReflectionBinding Command}"/>
+							<Setter Property="ToggleType" Value="{Binding Toggle_Type}"/>
+							<Setter Property="IsChecked" Value="{Binding Is_Checked}"/>
+						</Style>
+					</Border.Styles>
+					<Border.ContextFlyout>
+						<MenuFlyout ItemsSource="{Binding Context_Menu_Actions_Active}" FlyoutPresenterClasses="h"/>
+					</Border.ContextFlyout>
+					<Grid RowDefinitions="*,Auto">
+						<Image Name="image" Classes.IsNull="{Binding Is_Bitmap_Null}" Classes.IsNotNull="{Binding !Is_Bitmap_Null}" RenderOptions.BitmapInterpolationMode="MediumQuality">
+							<Image.Styles>
+								<Style Selector="Image.IsNull">
+									<Setter Property="Source" Value="{Binding Bitmap_Error}"/>
+								</Style>
+								<Style Selector="Image.IsNotNull">
+									<Setter Property="Source" Value="{Binding Bitmap}"/>
+								</Style>
+							</Image.Styles>
+						</Image>
+					</Grid>
+				</Border>
+			</Grid>
+		</TabItem>
+		<!--Tab 1-->
+		<TabItem Header="График">
+			<Border DockPanel.Dock="Left"
+					BorderThickness="4" CornerRadius="4" Background="Transparent">
+				<Grid RowDefinitions="*,10,*,10,*" ColumnDefinitions="*">
+					<ContentControl Grid.Row="0" Content="{Binding Plot_Area, Mode=OneTime}"/>
+					<GridSplitter Grid.Row="1" ResizeDirection="Rows"/>
+					<ContentControl Grid.Row="2" Content="{Binding Plot_Sm, Mode=OneTime}"/>
+					<GridSplitter Grid.Row="3" ResizeDirection="Rows"/>
+					<ContentControl Grid.Row="4" Content="{Binding Plot_SLbu, Mode=OneTime}"/>
+				</Grid>
+			</Border>
+		</TabItem>
+	</TabControl>
+</UserControl>

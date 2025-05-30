@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  	<ItemGroup>
+		<AvaloniaXaml Remove="WPF\**" />
+		<Compile Remove="WPF\**" />
+		<EmbeddedResource Remove="WPF\**" />
+		<None Remove="WPF\**" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.0" />
+		<PackageReference Include="Avalonia" Version="11.3.0" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.0" />
+		<PackageReference Include="Avalonia.Themes.Simple" Version="11.3.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Emgu.CV" Version="4.10.0.5680" />
+		<PackageReference Include="Emgu.CV.runtime.windows" Version="4.10.0.5680" />
+		<PackageReference Include="ScottPlot.Avalonia" Version="5.0.55" />
+	</ItemGroup>
+	
+  	<ItemGroup>
+  	  <ProjectReference Include="../../../../Fatigue-Crack-Growth-Rates/Source/FCGR.Client/FCGR.Client.csproj" />
+  	  <ProjectReference Include="..\..\..\..\Fatigue-Crack-Growth-Rates\Source\FCGR.CommonAvalonia\FCGR.CommonAvalonia.csproj" />
+  	  <ProjectReference Include="..\..\..\..\Fatigue-Crack-Growth-Rates\Source\FCGR.Common\FCGR.Common.csproj" />
+  	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Views\Controls\MainWindow\LogBox.axaml.cs">
+			<DependentUpon>LogBox.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Controls\MainWindow\VideoForm.axaml.cs">
+			<DependentUpon>VideoForm.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Controls\SettingsWindow\SettingGeneral.axaml.cs">
+			<DependentUpon>SettingGeneral.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Controls\ProjectWindow\ProjectManagement.axaml.cs">
+			<DependentUpon>ProjectManagement.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Controls\ProjectWindow\ProjectCreation.axaml.cs">
+			<DependentUpon>ProjectCreation.axaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ViewModels/Controls/MainWindow/" />
+	</ItemGroup>
+</Project>

@@ -1,0 +1,272 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="820"
+		xmlns:wpf_mvvm="using:FCGR.CommonAvalonia.MVVM"
+		xmlns:wpf_mvvm_controls="using:FCGR.CommonAvalonia.MVVM.Controls"
+		xmlns:wpf_xaml="using:FCGR.CommonAvalonia.XAML"
+		xmlns:models="using:CMTP.Avalonia.Models"
+		xmlns:models_context="using:CMTP.Avalonia.Models.Context"
+		xmlns:managers="using:CMTP.Avalonia.Managers"
+		xmlns:viewmodels_windows="using:CMTP.Avalonia.ViewModels.Windows"
+		xmlns:views_controls_main_window="using:CMTP.Avalonia.Views.Controls.MainWindow"
+		x:Class="CMTP.Avalonia.Views.Windows.MainWindow"
+		x:DataType="viewmodels_windows:ViewModelMainWindow"
+		ExtendClientAreaToDecorationsHint="True" Icon="avares://FCGR.CommonAvalonia/Resources/Assets/Images/Icons/window_icon.ico"
+		MinWidth="1000" MinHeight="600" Height="850" WindowStartupLocation="CenterScreen">
+	<Design.DataContext>
+		<viewmodels_windows:ViewModelMainWindow/>
+	</Design.DataContext>
+	
+	<Window.Resources>
+		<wpf_mvvm:ConverterObjectBool x:Key="converter_object_bool"/>
+		<wpf_mvvm:ConverterVideoStreamTypeBool x:Key="converter_video_stream_type_bool"/>
+		<wpf_mvvm:ConverterIsEnabledTooltip x:Key="converter_is_enabled_tooltip"/>
+		<wpf_mvvm:MultiConverterVideoStreamTypeString x:Key="multiconverter_video_stream_type_string"/>
+		<wpf_mvvm:MultiConverterWidthHeightResolution x:Key="multiconverter_width_height_resolution"/>
+		<wpf_mvvm:MultiConverterScrollViewerHeight x:Key="multiconverter_scroll_viewer_height"/>
+		<wpf_mvvm:MultiConverterBoolsAnd x:Key="multiconverter_bools_and"/>
+		<wpf_mvvm:ConverterEnumEnumerable x:Key="converter_enum_enumerable"/>
+		<wpf_mvvm:ConverterEnumInt x:Key="converter_enum_int"/>
+	</Window.Resources>
+	
+	<DockPanel>
+		<!--Top level and utility-->
+		<Grid DockPanel.Dock="Top" RowDefinitions="30" ColumnDefinitions="3*,4*,3*">
+			<Menu Padding="0,7,0,6" ItemsSource="{Binding Menu_Items, Mode=OneTime}"/>
+			<Border Grid.Column="1" IsHitTestVisible="False"
+					Opacity="0.5" CornerRadius="10" Background="{DynamicResource brush_control_background_interactive}">
+				<Border.Effect>
+					<BlurEffect Radius="10"/>
+				</Border.Effect>
+			</Border>
+			<TextBlock Grid.Column="1" IsHitTestVisible="False"
+						 TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Title}" FontWeight="SemiBold" FontSize="15"/>
+		</Grid>
+		<!--Left panel-->
+		<StackPanel DockPanel.Dock="Left" VerticalAlignment="Stretch" Width="270">
+			<StackPanel.Styles>
+				<Style Selector="HeaderedContentControl">
+					<Setter Property="Margin" Value="-5,6,0,0"/>
+				</Style>
+			</StackPanel.Styles>
+			
+			<HeaderedContentControl Header="Мониторинг">
+				<Expander Header="Показатели" IsEnabled="{Binding View_Model_Video_Form_Selected.Sensor_Stream, Mode=OneWay, Converter={StaticResource converter_object_bool}}" IsExpanded="{Binding View_Model_Video_Form_Selected.Sensor_Stream, Mode=OneWay, Converter={StaticResource converter_object_bool}}">
+					<Grid RowDefinitions="24,24,24,24" Margin="10,0,0,10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="80" MaxWidth="80"/>
+						</Grid.ColumnDefinitions>
+						<!--Column 0-->
+						<TextBlock Grid.Row="0"
+									 Text="Area:"/>
+						<TextBlock Grid.Row="1"
+									Text="Sm:"/>
+						<TextBlock Grid.Row="2"
+									 Text="SLbu:"/>
+						<TextBlock Grid.Row="3"
+									 Text="Текущий номер цикла:"/>
+						<!--Column 1-->
+						<TextBlock Grid.Row="0" Grid.Column="1"
+									 Text="{Binding View_Model_Video_Form_Selected.Sensor_Stream.Testing_Machine.Area}"/>
+						<TextBlock Grid.Row="1" Grid.Column="1"
+									 Text="{Binding View_Model_Video_Form_Selected.Sensor_Stream.Testing_Machine.Sm}"/>
+						<TextBlock Grid.Row="2" Grid.Column="1"
+									 Text="{Binding View_Model_Video_Form_Selected.Sensor_Stream.Testing_Machine.SLbu}"/>
+						<TextBlock Grid.Row="3" Grid.Column="1"
+									 Text="{Binding View_Model_Video_Form_Selected.Sensor_Stream.Testing_Machine.Cycle_Number_Current}"/>
+					</Grid>
+				</Expander>
+			</HeaderedContentControl>
+			<HeaderedContentControl Header="Управление">
+				<StackPanel Margin="0,3,0,0" Name="stackPanel_operation" Spacing="5">
+					<Expander Header="Видеопоток" IsExpanded="True">
+						<StackPanel Margin="10">
+							<Button Content="Обнаружить камеры" Command="{Binding Command_Detect_Cameras}"/>
+						</StackPanel>
+					</Expander>
+					<Expander Header="Испытание" IsExpanded="True">
+						<Grid Margin="10,0,0,10" RowDefinitions="Auto,24,24,24,30" VerticalAlignment="Stretch">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="90"/>
+								<ColumnDefinition Width="67"/>
+								<ColumnDefinition Width="38" MaxWidth="38"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.Styles>
+								<Style Selector="TextBlock.units">
+									<Setter Property="Padding" Value="10,0,0,0"/>
+								</Style>
+								<Style Selector="NumericUpDown">
+									<Setter Property="Height" Value="33"/>
+								</Style>
+							</Grid.Styles>
+							<CheckBox Grid.Row="0" Grid.ColumnSpan="3"
+										Content="Растяжение" IsChecked="true"/>
+							<!--Column 0-->
+							<TextBlock Grid.Row="1" Grid.Column="0"
+										 Text="Нагрузка:"/>
+							<TextBlock Grid.Row="2" Grid.Column="0"
+										 Text="Частота:"/>
+							<TextBlock Grid.Row="3" Grid.Column="0"
+										 Text="Длительность:"/>
+							<!--Column 1-->
+							<NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Sensor_Stream.Testing_Machine.Strain, Mode=TwoWay}"/>
+							<NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Sensor_Stream.Testing_Machine.Frequency, Mode=TwoWay}"/>
+							<NumericUpDown Grid.Row="3" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Sensor_Stream.Testing_Machine.Duration, Mode=TwoWay}"/>
+							<!--Column 2-->
+							<TextBlock Classes="units" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
+										 Text="Кг/м"/>
+							<TextBlock Classes="units" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+										 Text="Гц."/>
+							<TextBlock Classes="units" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
+										 Text="циклов"/>
+							<Button Grid.Row="4" Grid.ColumnSpan="3" Height="27" Margin="0,10,0,0" Padding="0,0,10,0"
+									Content="Начать испытание" Command="{Binding Command_Video_Form_Start_Testing}"/>
+						</Grid>
+					</Expander>
+					<Expander Header="Прогнозирование" IsEnabled="{Binding View_Model_Video_Form_Selected.Testing_Processor, Converter={StaticResource converter_object_bool}}" IsExpanded="True">
+						<Grid Margin="10,0,0,10" RowDefinitions="24,30" VerticalAlignment="Stretch">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="90"/>
+								<ColumnDefinition Width="67"/>
+								<ColumnDefinition Width="38" MaxWidth="38"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.Styles>
+								<Style Selector="TextBlock.units">
+									<Setter Property="Padding" Value="10,0,0,0"/>
+								</Style>
+								<Style Selector="NumericUpDown">
+									<Setter Property="Height" Value="33"/>
+								</Style>
+							</Grid.Styles>
+
+							<TextBlock Grid.Row="0" Grid.Column="0"
+										 Text="Горизонт:"/>
+							<NumericUpDown Grid.Row="0" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Testing_Processor.Forecast_Horizon, Mode=TwoWay}"/>
+							<TextBlock Classes="units" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+										 Text="циклов"/>
+							<ToggleButton Grid.Row="1" Grid.ColumnSpan="3" Height="27" Margin="0,10,0,0" Padding="0,0,10,0" 
+											Content="Рассчитать прогноз" Command="{Binding Command_Video_Form_Start_Forecasting}"/>
+						</Grid>
+					</Expander>
+				</StackPanel>
+			</HeaderedContentControl>
+		</StackPanel>
+		<!--Center-right panel-->
+		<SplitView DockPanel.Dock="Right" Margin="12,0,-20,8" Name="splitView"
+					 PanePlacement="Right" DisplayMode="CompactInline" OpenPaneLength="380" IsPaneOpen="True">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="3"/>
+					<RowDefinition Height="200" MaxHeight="450"/>
+				</Grid.RowDefinitions>
+				<ContentControl Content="{Binding Video_Form_Selected, Mode=OneWay}"/>
+				<!--<views_controls_main_window:VideoForm Name="video_form"/>-->
+				<GridSplitter Grid.Row="1" Height="9" Margin="0,3,0,-1" Classes="gradient"
+								ResizeDirection="Rows"/>
+				<views_controls_main_window:LogBox Grid.Row="2" Margin="0,5,0,0"/>
+			</Grid>
+			<SplitView.Pane>
+				<StackPanel>
+					<Panel >
+						<Button Width="25" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Name="button_splitView" />
+						<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+									Text="Материал" FontSize="20"/>
+					</Panel>
+					<DockPanel Grid.Row="1" Grid.Column="2" Margin="0,7,0,0"
+								 VerticalAlignment="Stretch">
+						<HeaderedContentControl Header="Свойства">
+							<Grid Margin="0,0,0,0" RowDefinitions="Auto,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24" VerticalAlignment="Stretch">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="67"/>
+									<ColumnDefinition Width="38" MaxWidth="38"/>
+								</Grid.ColumnDefinitions>
+								<Grid.Styles>
+									<Style Selector="TextBlock.units">
+										<Setter Property="Padding" Value="10,0,0,0"/>
+									</Style>
+									<Style Selector="NumericUpDown">
+										<Setter Property="Height" Value="33"/>
+									</Style>
+								</Grid.Styles>
+								<!--Column 0-->
+								<TextBlock Grid.Row="1" Grid.Column="0"
+											 Text="Тип материала:"/>
+								<TextBlock Grid.Row="2" Grid.Column="0"
+											 Text="Схема армирования:"/>
+								<TextBlock Grid.Row="3" Grid.Column="0"
+											 Text="sigma_C_B:"/>
+								<TextBlock Grid.Row="4" Grid.Column="0"
+											Text="E:"/>
+								<TextBlock Grid.Row="5" Grid.Column="0"
+											 Text="E_c:"/>
+								<TextBlock Grid.Row="6" Grid.Column="0"
+											 Text="tau__M:"/>
+								<TextBlock Grid.Row="7" Grid.Column="0"
+											 Text="tau__12M:"/>
+								<TextBlock Grid.Row="8" Grid.Column="0"
+											Text="G__12:"/>
+								<TextBlock Grid.Row="9" Grid.Column="0"
+											 Text="eps:"/>
+								<TextBlock Grid.Row="10" Grid.Column="0"
+											 Text="mu:"/>
+								<TextBlock Grid.Row="11" Grid.Column="0"
+											 Text="h__p:"/>
+								<TextBlock Grid.Row="12" Grid.Column="0"
+											Text="V:"/>
+								<TextBlock Grid.Row="13" Grid.Column="0"
+											 Text="T__gdry:"/>
+								<TextBlock Grid.Row="14" Grid.Column="0"
+											 Text="Тип климатического воздействия:"/>
+								<TextBlock Grid.Row="15" Grid.Column="0"
+											 Text="Время климатического воздействия:"/>
+								<TextBlock Grid.Row="16" Grid.Column="0"
+											Text="s__max:"/>
+								<TextBlock Grid.Row="17" Grid.Column="0"
+											 Text="sigma__b_min:"/>
+								<TextBlock Grid.Row="18" Grid.Column="0"
+											 Text="sigma__b_max:"/>
+								<TextBlock Grid.Row="19" Grid.Column="0"
+											 Text="sigma__b_mean:"/>
+								<!--Column 1-->
+								<ComboBox Grid.Row="1" Grid.Column="1" SelectedIndex="{Binding View_Model_Video_Form_Selected.Material.Type, Mode=TwoWay, Converter={StaticResource converter_enum_int}, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding View_Model_Video_Form_Selected.Material.Type, Mode=TwoWay, Converter={StaticResource converter_enum_enumerable}, Mode=OneTime}"/>
+								<ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding View_Model_Video_Form_Selected.Material.Reinforcement_Type, Mode=TwoWay, Converter={StaticResource converter_enum_int}, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding View_Model_Video_Form_Selected.Material.Reinforcement_Type, Mode=TwoWay, Converter={StaticResource converter_enum_enumerable}, Mode=OneTime}"/>
+								<NumericUpDown Grid.Row="3" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Sigma_C_B, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="4" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.E, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="5" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.E_C, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="6" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Tau_M, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="7" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Tau__12M, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="8" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.G__12, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="9" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Eps, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="10" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Mu, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="11" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.H__P, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="12" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.V, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="13" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.T__Gdry, Mode=TwoWay}"/>
+								<ComboBox Grid.Row="14" Grid.Column="1" SelectedIndex="{Binding View_Model_Video_Form_Selected.Material.Climate_Conditions, Mode=TwoWay, Converter={StaticResource converter_enum_int}, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding View_Model_Video_Form_Selected.Material.Climate_Conditions, Mode=TwoWay, Converter={StaticResource converter_enum_enumerable}, Mode=OneTime}"/>
+								<NumericUpDown Grid.Row="15" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Climate_Conditions_Time_Spent, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="16" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.S__Max, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="17" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Sigma__B_Min, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="18" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Sigma__B_Max, Mode=TwoWay}"/>
+								<NumericUpDown Grid.Row="19" Grid.Column="1" Value="{Binding View_Model_Video_Form_Selected.Material.Sigma__B_Mean, Mode=TwoWay}"/>
+								<!--Column 2-->
+								<TextBlock Classes="units" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
+											 Text="МПа"/>
+								<TextBlock Classes="units" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+											 Text="Гц."/>
+								<TextBlock Classes="units" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
+											 Text="циклов"/>
+							</Grid>
+						</HeaderedContentControl>
+					</DockPanel>
+				</StackPanel>
+				
+			</SplitView.Pane>
+		</SplitView>
+	</DockPanel>
+</Window>

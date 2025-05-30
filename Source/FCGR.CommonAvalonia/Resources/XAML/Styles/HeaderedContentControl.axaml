@@ -1,0 +1,31 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Styles.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+			<ResourceInclude Source="../ResourcesTheme.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	 </Styles.Resources>
+	
+	<Style Selector="HeaderedContentControl">
+		<Setter Property="Background" Value="{DynamicResource brush_control_background}"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Grid Grid.RowDefinitions="Auto,*" Grid.ColumnDefinitions="Auto,*">
+						<Border Name="border_background" ZIndex="1" Background="{DynamicResource brush_background}" Padding="5,0,5,0" Margin="5,0,0,0">
+							<TextBlock TextBlock.FontWeight="Bold" Text="{TemplateBinding Header}" />
+						</Border>
+						<Border Grid.RowSpan="2" Grid.ColumnSpan="2" BorderBrush="{TemplateBinding Background}" BorderThickness="2,1.5,2,1.5" CornerRadius="10" Margin="10,10,0,0">
+							<ContentPresenter Content="{TemplateBinding Content}" Margin="10"/>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style Selector="HeaderedContentControl.pane /template/ Grid > Border#border_background">	<!--NOTE there is no way to apply Classes property for all of the child controls in container-->
+		<Setter Property="Background" Value="{DynamicResource brush_control_background_special_2}"/>
+	</Style>
+</Styles>

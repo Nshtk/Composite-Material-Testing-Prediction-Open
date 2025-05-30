@@ -1,0 +1,33 @@
+<Application xmlns="https://github.com/avaloniaui" 
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+			xmlns:views="using:CMTP.Avalonia.Views" 
+			x:Class="CMTP.Avalonia.Views.App" 
+			x:DataType="views:App" 
+			RequestedThemeVariant="Default">
+	<Application.Styles>
+		<SimpleTheme/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/HeaderedContentControl.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/GridSplitter.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/TabControl.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/MenuItem.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/SplitView.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/TreeView.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/Expander.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/TextBox.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/Window.axaml"/>
+		<StyleInclude Source="avares://FCGR.CommonAvalonia/Resources/XAML/Styles/Icons.axaml"/>
+	</Application.Styles>
+	<TrayIcon.Icons>
+		<TrayIcons>
+			<TrayIcon Icon="avares://FCGR.CommonAvalonia/Resources/Assets/Images/Icons/tray_icon.ico" ToolTipText="Испытания на СРТУ">
+				<TrayIcon.Menu>
+					<NativeMenu>
+						<NativeMenuItem Header="Настройки" Command="{Binding Command_Open_Settings}"/>
+						<NativeMenuItemSeparator/>
+						<NativeMenuItem Header="Выход" Command="{Binding Command_Exit}"/>
+					</NativeMenu>
+				</TrayIcon.Menu>
+			</TrayIcon>
+		</TrayIcons>
+	</TrayIcon.Icons>
+</Application>

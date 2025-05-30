@@ -1,0 +1,8 @@
+{
+	"profiles": {
+		"FCGR.Client": {
+			"commandName": "Project",
+			"hotReloadEnabled": false
+		}
+	}
+}

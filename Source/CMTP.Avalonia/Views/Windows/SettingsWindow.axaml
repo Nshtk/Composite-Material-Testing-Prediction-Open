@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+		xmlns:managers="using:CMTP.Avalonia.Managers"
+		xmlns:viewmodels_windows="using:CMTP.Avalonia.ViewModels.Windows"
+		x:Class="CMTP.Avalonia.Views.Windows.SettingsWindow"
+		x:DataType="viewmodels_windows:ViewModelSettingsWindow"
+		Width="800" Height="550"
+		Classes="secondary"
+		Title="Настройки">
+
+	<StackPanel Orientation="Horizontal">
+		<DockPanel Width="120" Margin="4,5,0,5">
+			<TextBox DockPanel.Dock="Top" Text="{Binding Search_String, Mode=OneWayToSource}" Watermark="Поиск" CornerRadius="4"/>
+			<TreeView Margin="0,5,0,0" ItemsSource="{Binding Setting_Nodes}" SelectedItem="{Binding Setting_Node_Current}">
+				<TreeView.ItemTemplate>
+					<TreeDataTemplate ItemsSource="{Binding Subnodes}">
+						<StackPanel Orientation="Horizontal" PointerPressed="treeViewNodeOnPointerPressed">
+							<Image Source="{Binding Icon}"/>
+							<TextBlock Text="{Binding Title}"/>
+						</StackPanel>
+					</TreeDataTemplate>
+				</TreeView.ItemTemplate>
+			</TreeView>
+		</DockPanel>
+		<ContentControl Margin="10" Content="{Binding User_Control_Current}">
+			<ContentControl.Styles>
+				<Style Selector="HeaderedContentControl">
+					<Setter Property="HorizontalAlignment" Value="Left"/>
+				</Style>
+				<Style Selector="NumericUpDown">
+					<Setter Property="Height" Value="33"/>
+					<Setter Property="Margin" Value="5,0,0,0"/>
+				</Style>
+			</ContentControl.Styles>
+		</ContentControl>
+	</StackPanel>
+</Window>

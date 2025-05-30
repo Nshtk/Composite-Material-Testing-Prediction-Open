@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		xmlns:viewmodels_windows="using:CMTP.Avalonia.ViewModels.Windows"
+		xmlns:wpf_mvvm="using:FCGR.CommonAvalonia.MVVM"
+		x:Class="CMTP.Avalonia.Views.Windows.ProjectWindow"
+		x:DataType="viewmodels_windows:ViewModelProjectWindow"
+		Classes="secondary"
+		SizeToContent="WidthAndHeight" CanResize="False"
+		Title="{Binding Title}">
+	<Design.DataContext>
+		<viewmodels_windows:ViewModelProjectWindow/>
+	</Design.DataContext>
+	
+	<Window.Resources>
+		<wpf_mvvm:ConverterObjectBool x:Key="converter_object_bool"/>
+	</Window.Resources>
+	
+	<Grid RowDefinitions="Auto,*">
+		<TransitioningContentControl Grid.Row="0" IsTransitionReversed="{Binding Is_First_View_Active}" Name="transitioning_content_control" Content="{Binding User_Control_Current}">
+			<TransitioningContentControl.Transitions>
+				<Transitions>
+					<DoubleTransition Property="Width" Duration="0:0:5"/> <!--BUG Not working (tried Window.Transitions, RelativeSouce binding)-->
+					<DoubleTransition Property="Height" Duration="0:0:5"/>
+				</Transitions>
+			</TransitioningContentControl.Transitions>
+			<TransitioningContentControl.PageTransition>
+				<PageSlide Orientation="Horizontal" Duration="0:00:00.2" />
+			</TransitioningContentControl.PageTransition>
+		</TransitioningContentControl>
+		<TextBlock Grid.Row="1" IsVisible="{Binding Error_Message, Converter={StaticResource converter_object_bool}}" MaxWidth="400"
+					 Text="{Binding Error_Message}" Foreground="Red" TextAlignment="Center" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="14" FontFamily="SegoeUI"/>
+	</Grid>
+</Window>

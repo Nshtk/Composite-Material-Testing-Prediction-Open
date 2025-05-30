@@ -1,0 +1,28 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:wpf_mvvm_controls="using:FCGR.CommonAvalonia.MVVM.Controls">
+	<Styles.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="../ResourcesTheme.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Styles.Resources>
+
+	<!--<Style Selector="^ ContextMenu MenuItem" x:DataType="wpf_mvvm_controls:MenuActionBase">
+		<Setter Property="Header" Value="{Binding Title}"/>
+		<Setter Property="Icon">
+			<Setter.Value>
+				<Template>
+					<Image Source="{Binding Icon}" />
+				</Template>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="IsVisible" Value="{Binding Is_Visible}"/>
+		<Setter Property="ItemsSource" Value="{Binding Actions_Submenu}"/>
+		<Setter Property="Command" Value="{Binding Command}"/>
+		<Setter Property="CommandParameter" Value="{Binding Command_Parameter}"/>
+		<Setter Property="ToggleType" Value="{Binding Toggle_Type}"/>
+		<Setter Property="IsChecked" Value="{Binding Is_Checked}"/>
+	</Style>-->
+</Styles>

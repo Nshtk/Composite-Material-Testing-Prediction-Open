@@ -1,0 +1,8 @@
+{
+	"profiles": {
+		"FCGR.CommonAvalonia": {
+			"commandName": "Project",
+			"hotReloadEnabled": false
+		}
+	}
+}

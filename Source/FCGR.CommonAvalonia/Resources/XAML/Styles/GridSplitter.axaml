@@ -1,0 +1,38 @@
+<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<Styles.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="../ResourcesTheme.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Styles.Resources>
+
+	<Style Selector="GridSplitter">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type GridSplitter}">
+					<Grid>
+						<Rectangle Fill="{DynamicResource brush_control_background_special_3}"/>
+						<TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center"
+									 Text="....." FontWeight="Bold"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style Selector="GridSplitter.gradient">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type GridSplitter}">
+					<Grid>
+						<Rectangle Fill="{DynamicResource brush_gradient_background_to_special_2}"/>
+						<TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" 
+									 Text="....." FontWeight="Bold"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</Styles>

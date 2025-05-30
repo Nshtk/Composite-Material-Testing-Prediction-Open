@@ -1,0 +1,32 @@
+syntax="proto3";
+
+option csharp_namespace="FCGR.Proto.Common";
+package utilities;
+
+message Message
+{
+	enum MESSAGE_SEVERITY 
+	{
+		COMMON=0;
+		INFORMATION=1;
+		WARNING=2;
+		CRITICAL=3;
+	}
+	string text=1;
+	MESSAGE_SEVERITY severity=2;
+}
+
+message BasicRequest
+{
+	uint32 id=1;
+}
+message BasicReply 
+{
+	bool result=1;
+	Message message=2;
+}
+
+message ActualType
+{
+	string name=1;
+}

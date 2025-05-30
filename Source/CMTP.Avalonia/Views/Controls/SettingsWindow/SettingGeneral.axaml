@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:wpf_mvvm="using:FCGR.CommonAvalonia.MVVM"
+			 xmlns:managers="using:CMTP.Avalonia.Managers"
+			 xmlns:views_controls_settings="using:CMTP.Avalonia.Views.Controls.Settings"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="views_controls_settings:SettingGeneral"
+			 x:Class="CMTP.Avalonia.Views.Controls.Settings.SettingGeneral">
+
+	<UserControl.Resources>
+		<wpf_mvvm:ConverterEnumEnumerable x:Key="converter_enum_enumerable"/>
+		<wpf_mvvm:ConverterEnumInt x:Key="converter_enum_int"/>
+	</UserControl.Resources>
+	
+	<Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*">
+		<StackPanel Spacing="10">
+			<HeaderedContentControl HorizontalAlignment="Left" Header="Оформление">
+				<StackPanel Orientation="Horizontal" Spacing="10">
+					<TextBlock Text="Тема:" VerticalAlignment="Center"/>
+					<ComboBox Name="comboBox" SelectedIndex="{Binding Settings_Manager.Theme, DataType={x:Type managers:AppManager}, Mode=TwoWay, Converter={StaticResource converter_enum_int}, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Settings_Manager.Theme, DataType={x:Type managers:AppManager}, Mode=TwoWay, Converter={StaticResource converter_enum_enumerable}, Mode=OneTime}"/>
+				</StackPanel>
+			</HeaderedContentControl>
+			<HeaderedContentControl Header="Проект">
+				<StackPanel Spacing="10">
+					<CheckBox Content="Сохранять индивидуальные настройки для каждого видеопотока" IsChecked="{Binding Settings_Manager.Project_Is_Individual_Video_Stream_Setting_Enabled.Value, DataType={x:Type managers:AppManager}, Mode=TwoWay}}" ToolTip.Tip="{Binding Settings_Manager.Project_Is_Individual_Video_Stream_Setting_Enabled.Description, DataType={x:Type managers:AppManager}, Mode=TwoWay}}"/>
+					<Button Content="Сбросить индивидуальные настройки" Command="{Binding Settings_Manager.Command_Reset_Individual_Settings, DataType={x:Type managers:AppManager}}"/>
+					<Button Content="Восстановить настройки по-умолчанию" Command="{Binding Settings_Manager.Command_Restore_Default_Settings, DataType={x:Type managers:AppManager}}"/>
+				</StackPanel>
+			</HeaderedContentControl>
+		</StackPanel>
+	</Grid>
+</UserControl>

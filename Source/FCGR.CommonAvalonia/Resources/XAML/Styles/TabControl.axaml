@@ -1,0 +1,36 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:wpf_mvvm="using:FCGR.CommonAvalonia.MVVM">
+	<Styles.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="../ResourcesTheme.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Styles.Resources>
+
+	<Style Selector="TabControl WrapPanel">
+		<Setter Property="MaxHeight" Value="30"/>
+	</Style>
+	<Style Selector="TabItem">
+		<Setter Property="Margin" Value="0,0,3,0"/>
+		<Setter Property="Padding" Value="8,5,8,5"/>
+		<Setter Property="Foreground" Value="Black"/>
+		<Setter Property="Background" Value="{DynamicResource brush_control_background_interactive}"/>
+		<Setter Property="CornerRadius" Value="3"/>
+		<Setter Property="FontSize" Value="16"/>
+		<Setter Property="FontWeight" Value="SemiBold"/>
+		<Style Selector="^:selected /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="Background" Value="{DynamicResource brush_control_background_interactive_selected}"/>
+		</Style>
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="Background" Value="{DynamicResource brush_control_background_interactive_selected_focus}"/>
+		</Style>
+		<Style Selector="^:selected:focus /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="Black"/>
+			<Setter Property="Background" Value="{DynamicResource brush_control_background_interactive_selected_focus}"/>
+		</Style>
+	</Style>
+</Styles>
