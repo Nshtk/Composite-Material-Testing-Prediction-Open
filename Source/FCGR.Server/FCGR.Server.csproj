@@ -4,16 +4,14 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<Protobuf Include="GRPC\Protos\General\UserService.proto" GrpcServices="Server" ProtoRoot="GRPC\Protos\" />
-		<Protobuf Include="GRPC\Protos\Streaming\FrameStreamingService.proto" GrpcServices="Server" ProtoRoot="GRPC\Protos\" />
 		<Protobuf Include="GRPC\Protos\Common\Utilities.proto" ProtoRoot="GRPC\Protos\" />
-		<Protobuf Include="GRPC\Protos\Processing\FrameProcessingService.proto" ProtoRoot="GRPC\Protos\" />
+		<Protobuf Include="GRPC\Protos\Testing\TestingService.proto" ProtoRoot="GRPC\Protos\" />
 	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="Emgu.CV" Version="4.10.0.5680" />
 		<PackageReference Include="Emgu.CV.runtime.windows" Version="4.10.0.5680" />
-		<PackageReference Include="Google.Protobuf" Version="3.30.2" />
+		<PackageReference Include="Google.Protobuf" Version="3.31.1" />
 		<PackageReference Include="Grpc.AspNetCore.Server" Version="2.71.0" />
 		<PackageReference Include="Grpc.Core" Version="2.46.6" />
 		<PackageReference Include="Grpc.Core.Api" Version="2.71.0" />
@@ -21,10 +19,13 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.IO.Ports" Version="9.0.5" />
+		<PackageReference Include="System.IO.Ports" Version="9.0.6" />
 	</ItemGroup>
 	
 	<ItemGroup>
 		<ProjectReference Include="..\FCGR.Common\FCGR.Common.csproj" />
 	</ItemGroup>
+	<Target Name="CopyDataFolder" AfterTargets="Build">
+		<Exec Command="xcopy &quot;$(SolutionDir)..\Data\*&quot; &quot;$(OutputPath)Data\&quot; /E /Y /D /I" />
+	</Target>
 </Project>

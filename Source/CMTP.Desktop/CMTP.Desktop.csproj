@@ -20,12 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="../CMTP.Avalonia/CMTP.Avalonia.csproj" />
   </ItemGroup>
-	<!--<Target Name="CopyDataFolder" AfterTargets="Build">
-		<ItemGroup>
-			<DataFiles Include="$(SolutionDir)..\Data\**\*"/>
-		</ItemGroup>
-		<Copy SourceFiles="@(DataFiles)" DestinationFolder="$(OutputPath)Data\%(RecursiveDir)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true"/>
-	</Target>-->
 	<Target Name="CopyDataFolder" AfterTargets="Build">
 		<Exec Command="xcopy &quot;$(SolutionDir)..\Data\*&quot; &quot;$(OutputPath)Data\&quot; /E /Y /D /I" />
 	</Target>

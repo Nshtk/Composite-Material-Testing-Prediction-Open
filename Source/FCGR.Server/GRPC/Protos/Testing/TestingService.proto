@@ -1,0 +1,28 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";
+import "Common/Utilities.proto";
+
+option csharp_namespace="FCGR.Proto.Testing";
+package processing;
+
+message TestingParametersRequest
+{
+	bytes testing_processor=1;
+}
+message DataRequest
+{
+	repeated float x=1;
+	repeated float y=2;
+}
+message TestingProcessorResultReply
+{
+	bytes testing_processor_result=1;
+}
+
+service TestingService
+{
+	rpc sendTestingParameters(TestingParametersRequest) returns(google.protobuf.Empty);
+	rpc sendData(stream DataRequest) returns(google.protobuf.Empty);
+	rpc receiveForecast(google.protobuf.Empty) returns(TestingProcessorResultReply);
+}

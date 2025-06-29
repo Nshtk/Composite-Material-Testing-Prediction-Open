@@ -16,12 +16,6 @@
 		<PackageReference Include="Emgu.CV.runtime.windows" Version="4.10.0.5680" />
 		<PackageReference Include="ScottPlot.Avalonia" Version="5.0.55" />
 	</ItemGroup>
-	
-  	<ItemGroup>
-  	  <ProjectReference Include="../../../../Fatigue-Crack-Growth-Rates/Source/FCGR.Client/FCGR.Client.csproj" />
-  	  <ProjectReference Include="..\..\..\..\Fatigue-Crack-Growth-Rates\Source\FCGR.CommonAvalonia\FCGR.CommonAvalonia.csproj" />
-  	  <ProjectReference Include="..\..\..\..\Fatigue-Crack-Growth-Rates\Source\FCGR.Common\FCGR.Common.csproj" />
-  	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Update="Views\Controls\MainWindow\LogBox.axaml.cs">
@@ -43,5 +37,11 @@
 
 	<ItemGroup>
 	  <Folder Include="ViewModels/Controls/MainWindow/" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\FCGR.Client\FCGR.Client.csproj" />
+	  <ProjectReference Include="..\FCGR.CommonAvalonia\FCGR.CommonAvalonia.csproj" />
+	  <ProjectReference Include="..\FCGR.Common\FCGR.Common.csproj" />
 	</ItemGroup>
 </Project>

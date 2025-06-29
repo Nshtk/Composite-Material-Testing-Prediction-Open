@@ -1,18 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using MemoryPack;
+
 using FCGR.Common.Libraries.AI.Models.CrackForecasting;
-using FCGR.Common.Utilities;
 
 namespace FCGR.Common.Libraries.Models.Processors.Testing;
 
-public class TestingProcessorAI : Model
+[MemoryPackable]
+public sealed partial class TestingProcessorAI : Model
 {
-	public readonly int lags_count;
-	private Queue<(float[], float[])> _x_y_received;
+	public sealed class TestingProcessorAIResult
+	{
+		public int N_predictions_start;
+		public float[][] predictions;
+
+		public TestingProcessorAIResult()
+		{}
+	}
+
+	public const int Lags_count=5;
+	private Queue<(float[], float[])> _x_y_received = new(Lags_count);
 	private AIModelCrackForecastingGradientBoosting _ai_model_crack_forecasting_gradient_boosting = new("crack-forecasting-gradient-boosting-model", 3, 1000, 6, learning_rate: 0.1f);
-	private int _forecast_horizon=1;
+	private int _forecast_horizon;
 
 	public int Forecast_Horizon
 	{
@@ -20,36 +30,40 @@ public class TestingProcessorAI : Model
 		set { _forecast_horizon = value; OnPropertyChanged(); }
 	}
 
-	public TestingProcessorAI(string path_model_load)
+	public TestingProcessorAI()
 	{
-		if (!_ai_model_crack_forecasting_gradient_boosting.load(path_model_load))
-			throw new Exception("Model was not loaded.");
-		_x_y_received = new(lags_count);
+
 	}
+
 	public void addData((float[] x, float[] y) x_y)
 	{
-		while (_x_y_received.Count > lags_count)
-			_x_y_received.Dequeue();
+		while (_x_y_received.Count > Lags_count)
+		{
+			lock(_x_y_received)
+				_x_y_received.Dequeue();
+		}
 		_x_y_received.Enqueue(x_y);
 	}
-	
-	public (int N_predictions_start, float[][] predictions) calculateForecast(int lags_count, bool is_calculating_proportions = true, bool is_calculating_mean = true, bool is_calculating_std = true, bool is_calculating_trend_slope = true)
+	public TestingProcessorAIResult calculateForecast(int lags_count, bool is_calculating_proportions = true, bool is_calculating_mean = true, bool is_calculating_std = true, bool is_calculating_trend_slope = true)
 	{
 		List<float[]> xs = new (lags_count);
 		List<float[]> ys = new (lags_count);
 		float[][] ys_predicted = new float[Forecast_Horizon][];
-		int N_predictions_start;
+		TestingProcessorAIResult result=new();
 
-		for (int i = 0; i < lags_count; )
+		lock (_x_y_received)
 		{
-			if (_x_y_received.TryDequeue(out (float[] x, float[] y) x_y))
+			for (int i = 0; i < lags_count;)
 			{
-                xs.Add(x_y.x);
-				ys.Add(x_y.y);
-				i++;
+				if (_x_y_received.TryDequeue(out (float[] x, float[] y) x_y))
+				{
+					xs.Add(x_y.x);
+					ys.Add(x_y.y);
+					i++;
+				}
 			}
 		}
-		N_predictions_start = (int)xs[^1][19]+1;
+		result.N_predictions_start = (int)xs[^1][19]+1;
 
 		for (int i=0; i<Forecast_Horizon; i++)
 		{
@@ -64,7 +78,13 @@ public class TestingProcessorAI : Model
 			ys.RemoveAt(0);
 			ys.Add(ys_predicted[i]);
 		}
+		result.predictions = ys_predicted;
 
-		return (N_predictions_start, ys_predicted);
+		return result;
+	}
+	public void loadModels(string path_models)	//Moved from the contructor to a separate method because there is no way to serialize this class with models already loaded
+	{
+		if (!_ai_model_crack_forecasting_gradient_boosting.load(path_models))
+			throw new Exception("Model was not loaded.");
 	}
 }

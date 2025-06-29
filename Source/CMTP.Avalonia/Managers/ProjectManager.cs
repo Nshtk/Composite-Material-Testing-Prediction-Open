@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading.Tasks;
 using System.Diagnostics;
@@ -11,9 +10,7 @@ using Emgu.CV;
 using ClosedXML.Excel;
 
 using FCGR.Common.Utilities;
-using FCGR.Common.Libraries.Models.Processors.Crack;
 using FCGR.Common.Libraries.DataFiles;
-using CMTP.Avalonia.Views.Windows;
 using CMTP.Avalonia.Models;
 
 namespace CMTP.Avalonia.Managers;
@@ -172,7 +169,7 @@ public static class ProjectManager
 		_Project_file = new FileInfo(file_path);
 		using (FileStream file_stream = _Project_file.OpenRead())
 		{
-			(file_lines, Project_Options_Last_Position_In_File) = file_stream.readLinesWithPosition(2);
+			(file_lines, Project_Options_Last_Position_In_File) = file_stream.readLinesWithPosition(3);
 		}
 
 		if (!Directory.Exists(file_lines[1]))
@@ -210,10 +207,6 @@ public static class ProjectManager
 		bool result = true;
 
 		projectClosed?.Invoke(null, EventArgs.Empty);
-		if ((bool)AppManager.Settings_Manager.Project_Is_Individual_Video_Stream_Setting_Enabled.Value || (bool)AppManager.Settings_Manager.Is_Saving_Opened_Video_Form_Count.Value)
-		{
-			result = await AppManager.Settings_Manager.saveSettingsAsync().ConfigureAwait(false);
-		}
 
 		if (is_closing_on_app_exit)
 			return result;
@@ -327,107 +320,7 @@ public static class ProjectManager
 
 		return path;
 	}
-	private record struct CrackProcessorResultRecord
-	{
-		public readonly int frame_serie_number, crack_tip_location_x, crack_tip_location_y;
-		public readonly string crack_length_formula, crack_length_growth_formula;
-
-		public CrackProcessorResultRecord(int frame_serie_number, int crack_tip_location_x, int crack_tip_location_y)
-		{
-			this.frame_serie_number = frame_serie_number;
-			this.crack_tip_location_x = crack_tip_location_x;
-			this.crack_tip_location_y = crack_tip_location_y;
-			crack_length_formula = $"=[@[{nameof(crack_tip_location_x)}]]-INDEX([{nameof(crack_tip_location_x)}];1)";		//TODO? Calculate distance between points?
-			crack_length_growth_formula = $"=[@[{nameof(crack_tip_location_x)}]]-OFFSET([@[{nameof(crack_tip_location_x)}]];-1;0)";
-		}
-	}
-	public static bool saveCrackProcessingResult(CrackProcessor.Result result, int video_stream_id, string video_stream_description, int frame_serie_number, bool is_converting_to_rgb=false)
-	{
-		string date_time_now = DateTime.Now.ToString("dd.MM.yyyy HH-mm-ss");
-
-		if (result is CrackProcessorIntensityDifference.ResultIntensityDifference result_intensity_difference)
-		{
-			string path_data_images_processed = getDataPath(video_stream_id, video_stream_description, CONTENT_TYPE.PROCESSED, FILE_TYPE.IMAGES, frame_serie_number);
-			string path_data_images_difference = getDataPath(video_stream_id, video_stream_description, CONTENT_TYPE.PROCESSED, FILE_TYPE.IMAGES, frame_serie_number, PROCESSING_TYPE.DIFFERENCE);
-			string path_data_protocols = getDataPath(video_stream_id, video_stream_description, CONTENT_TYPE.PROCESSED, FILE_TYPE.PROTOCOLS);
-			Mat frame_highlighted_crack = new Mat();
-			string file_protocol_full_path = $"{path_data_protocols}{Path.DirectorySeparatorChar}protocol.xlsx";
-			IXLWorksheet file_protocol_worksheet=null; string file_protocol_worksheet_name = "Результаты";
-			IXLTable file_protocol_table=null; string file_protocol_table_name="Характеристики трещины";
-
-			//AppManager.Logger.printMessage($"Длина трещины: {result.crack_length}.");
-			//AppManager.Logger.printMessage($"Прирост за серию: {result.crack_length_growth}.");
-
-			lock(_Locker)
-			{
-				if (File_Protocol == null)
-				{
-					File_Protocol = new(file_protocol_full_path);
-					_File_protocol.onDispose += (sender, e) =>
-					{
-						file_protocol_table.Sort(nameof(CrackProcessorResultRecord.frame_serie_number), XLSortOrder.Ascending);
-						file_protocol_worksheet?.Columns().AdjustToContents();
-						_File_protocol.save();
-					};
-					_File_protocol.work_book.CalculationOnSave = true;
-				}
-				if (!File_Protocol.work_book.TryGetWorksheet(file_protocol_worksheet_name, out file_protocol_worksheet))
-				{
-					file_protocol_worksheet = File_Protocol.work_book.AddWorksheet(file_protocol_worksheet_name);
-				}
-				if (!file_protocol_worksheet.Tables.TryGetTable(file_protocol_table_name, out file_protocol_table))
-				{
-					file_protocol_worksheet.Cell(1, 1).Value = "Номер серии фреймов";
-					file_protocol_worksheet.Cell(1, 2).Value = "Координта вершины трещины X";
-					file_protocol_worksheet.Cell(1, 3).Value = "Координта вершины трещины Y";
-					file_protocol_worksheet.Cell(1, 4).Value = "Длина трещины";
-					file_protocol_worksheet.Cell(1, 5).Value = "Прирост длины трещины";
-
-					file_protocol_table = file_protocol_worksheet.FirstCell().InsertTable(new CrackProcessorResultRecord[] {
-						new CrackProcessorResultRecord(frame_serie_number, result.crack_tip_location.Value.X, result.crack_tip_location.Value.Y),
-					}, file_protocol_table_name, true).SetShowHeaderRow().SetShowTotalsRow().SetShowRowStripes().SetShowColumnStripes();
-					file_protocol_table.Field(nameof(CrackProcessorResultRecord.crack_tip_location_x)).TotalsRowFunction = XLTotalsRowFunction.None;
-					file_protocol_table.Field(nameof(CrackProcessorResultRecord.crack_tip_location_y)).TotalsRowFunction = XLTotalsRowFunction.None;
-					//file_protocol_table.Field(nameof(CrackProcessorResultRecord.crack_length)).TotalsRowFunction = XLTotalsRowFunction.StandardDeviation;
-					//file_protocol_table.Field(nameof(CrackProcessorResultRecord.crack_length_growth)).TotalsRowFunction = XLTotalsRowFunction.Average;
-
-					file_protocol_table.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-				}
-				else
-				{
-					file_protocol_table.AppendData(new CrackProcessorResultRecord[] {
-						new CrackProcessorResultRecord(frame_serie_number, result.crack_tip_location.Value.X, result.crack_tip_location.Value.Y)
-					});
-				}
-				file_protocol_worksheet.Columns().AdjustToContents();
-				File_Protocol.save();
-			}
-
-			if (is_converting_to_rgb)       //HACK terrible, why... Maybe OpenCV 5 will change this
-			{
-				CvInvoke.CvtColor(result_intensity_difference.frame_highlighted_crack, frame_highlighted_crack, Emgu.CV.CvEnum.ColorConversion.Rgb2Bgr);
-			}
-			else
-			{
-				frame_highlighted_crack = result.frame_highlighted_crack;
-			}
-			CvInvoke.Imwrite($"{path_data_images_processed}{Path.DirectorySeparatorChar}{result.frame_number_in_serie}.jpg", frame_highlighted_crack);
-			for (int i = 0; i < result_intensity_difference.frames_difference.Length; i++)
-				CvInvoke.Imwrite($"{path_data_images_difference}{Path.DirectorySeparatorChar}{i}.jpg", result_intensity_difference.frames_difference[i]);
-		}
-		else if(result is CrackProcessorAI.ResultAI)
-		{
-			throw new NotImplementedException();
-		}
-		else
-		{
-			AppManager.Logger.logMessage($"Saving only basic info, saving for {result.GetType().Name} class is not implemented yet.", MESSAGE_SEVERITY.WARNING);
-			string data_path_images = getDataPath(video_stream_id, video_stream_description, CONTENT_TYPE.PROCESSED, FILE_TYPE.IMAGES, frame_serie_number);
-			CvInvoke.Imwrite($"{data_path_images}{Path.DirectorySeparatorChar}{frame_serie_number}{Path.DirectorySeparatorChar}{result.frame_number_in_serie}.jpg", result.frame_highlighted_crack);
-		}
-
-		return true;
-	}
+	
 	public static void disposeProtocolFile()
 	{
 		if (File_Protocol != null)

@@ -54,14 +54,6 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 			
 			return value;
 		}
-		/*public object? getSettingPropertyValue<T>(Type type, bool casting_to_type)	//Not working because of enum casting errors
-		{
-			object? value = typeof(SettingsManager).GetProperty(_setting_property_name_linked).GetValue(AppManager.Settings_Manager);
-			if(casting_to_type)
-				value=(T)value;
-			Convert.ChangeType(value, Nullable.GetUnderlyingType(type) ?? type);
-			return value;
-		}*/
 	}
 	/// <summary>
 	///		Used for initial startup configuration.
@@ -169,27 +161,12 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 		[Description("Заполнение")]
 		FILL = 1
 	}
-	/// <summary>
-	///		For streaming data to server.
-	/// </summary>
-	public enum NETWORK_PROTOCOL
-	{
-		[Description("TCP")]
-		TCP = 0,
-		[Description("UDP")]
-		UDP = 1,
-		/*[Description("RTSP")]		//TODO...?
-		RTSP = 2*/
-	}
 	#endregion
 	#region Fields
 	private readonly Dictionary<string, Setting[]> setting_group_name_setting = new Dictionary<string, Setting[]>()		//TODO Settings are not written to project file if their value is null (setting_number_in_group can cause problems when parsing)
 	{
 		{"Оформление",          new Setting[] {
 									new Setting("Тема", THEME.SYSTEM),
-								}},
-		{"Проект",              new Setting[] {
-									new Setting("Сохранять_индивидуальные_настройки", false, null, false, description: "Сохранение просходит по номеру видеопотока, который присваивается по порядку номеров портов подключенных камер или по названию видеофайла.\nИндивидуальные настройки будут применены при следующем открытии этого проекта.")
 								}},
 		{"Сервер",              new Setting[] {
 									new Setting("IPv6", true, (value)=>	//These 3 settings are circular dependants to each other
@@ -200,15 +177,13 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 											AppManager.Settings_Manager.Server_Address.Value=AppManager.Settings_Manager.Server_Address.Value;	//Invalidate value
 										return true;
 									}, description: "Использовать IPv6 для соединения с сервером. Может улучшить скорость передачи данных.\nВАЖНО: потребуется изменить адрес сервера на его IPv6 адрес."),
-									new Setting("Адрес", "127.0.0.1", (value)=>
+									new Setting("Адрес", "::1", (value)=>
 									{
 										string value_casted=(string)value;
 										bool result = value_casted!="";
 
 										if(!(bool)AppManager.Settings_Manager.Server_Is_Using_IPV6.Value)
 											result=Regex.IsMatch(value_casted, "([0-9]{1,3}\\.){3}([0-9]{1,3})");
-										/*else //TODO
-											result= Regex.IsMatch((string)value, "([0-9]{1,3}\\.){3}([0-9]{1,3})");*/
 										if(result)
 										{
 											ServerManager.Server_Endpoint =new IPEndPoint(IPAddress.Parse(value_casted), (int)AppManager.Settings_Manager.Server_Port.Value);
@@ -220,7 +195,7 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 										return result;
 									}),
 									new Setting("Порт", 5001),
-									new Setting("Локальный_сервер", false, (value)=>
+									new Setting("Локальный_сервер", true, (value)=>
 									{
 										if((bool)value)
 										{
@@ -258,91 +233,21 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 			themeChanged?.Invoke(this, value);
 		}
 	}
-	public Setting Project_Is_Individual_Video_Stream_Setting_Enabled
-	{
-		get { return setting_group_name_setting["Проект"][0]; }
-	}
-	public Setting Is_Saving_Opened_Video_Form_Count
-	{
-		get { return setting_group_name_setting["Видеоформа"][0]; }
-	}
-	public Setting Video_Forms_Count
-	{
-		get { return setting_group_name_setting["Видеоформа"][1]; }
-	}
-	public BITMAP_STRETCH VideoForm_Bitmap_Stretch
-	{
-		get { return (BITMAP_STRETCH)setting_group_name_setting["Изображение"][0].Value; }
-		set { setting_group_name_setting["Изображение"][0].Value = value; }
-	}
-	public Setting VideoForm_Is_Grid_Enabled
-	{
-		get { return setting_group_name_setting["Изображение"][1]; }
-	}
-	public Setting VideoStream_Frame_Width  //FIXME NullRefEx if type in non-nullable, fix binding error if value is set to empty through UI //NOTE Cannot bind to dictonary in xaml, using workaround instead...
-	{
-		get { return setting_group_name_setting["Видео"][0]; }
-	}
-	public Setting VideoStream_Frame_Height
-	{
-		get { return setting_group_name_setting["Видео"][1]; }
-	}
-	public Setting VideoStream_Frames_Per_Second
-	{
-		get { return setting_group_name_setting["Видео"][2]; }
-	}
-	public Setting Recording_Duration
-	{
-		get { return setting_group_name_setting["Циклическая_запись"][0]; }
-	}
-	public Setting Recording_Interval
-	{
-		get { return setting_group_name_setting["Циклическая_запись"][1]; }
-	}
-	public Setting Recording_Duration_Per_File
-	{
-		get { return setting_group_name_setting["Циклическая_запись"][2]; }
-	}
-	public Setting Processing_Frames_Batch_Size
-	{
-		get { return setting_group_name_setting["Обработка_видео"][0]; }
-	}
-	public Setting Server_User_Login
+	public Setting Server_Is_Using_IPV6
 	{
 		get { return setting_group_name_setting["Сервер"][0]; }
 	}
-	public Setting Server_User_Email
+	public Setting Server_Address
 	{
 		get { return setting_group_name_setting["Сервер"][1]; }
 	}
-	public Setting Server_Is_Using_IPV6
+	public Setting Server_Port
 	{
 		get { return setting_group_name_setting["Сервер"][2]; }
 	}
-	public Setting Server_Address
-	{
-		get { return setting_group_name_setting["Сервер"][3]; }
-	}
-	public Setting Server_Port
-	{
-		get { return setting_group_name_setting["Сервер"][4]; }
-	}
 	public Setting Server_Is_Local
 	{
-		get { return setting_group_name_setting["Сервер"][5]; }
-	}
-	public Setting Server_Is_Streaming_Enabled
-	{
-		get { return setting_group_name_setting["Сервер"][6]; }
-	}
-	public Setting Server_Is_Processing_Enabled
-	{
-		get { return setting_group_name_setting["Сервер"][7]; }
-	}
-	public NETWORK_PROTOCOL Server_Streaming_Protocol
-	{
-		get { return (NETWORK_PROTOCOL)setting_group_name_setting["Сеть"][0].Value; }
-		set { setting_group_name_setting["Сеть"][0].Value = value; }
+		get { return setting_group_name_setting["Сервер"][3]; }
 	}
 	#region Properties.Avalonia
 	public IRelayCommand Command_Restore_Default_Settings
@@ -352,15 +257,6 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 			if (_command_restore_default_settings == null)
 				_command_restore_default_settings = new RelayCommand(restoreDefaultSettings, () => { return true; });
 			return _command_restore_default_settings;
-		}
-	}
-	public IRelayCommand Command_Reset_Individual_Settings
-	{
-		get
-		{
-			if (_command_reset_individual_settings == null)
-				_command_reset_individual_settings = new RelayCommand(resetIndividualSettings, () => { return true; }); //Not using (bool)Project_Is_Individual_Video_Stream_Setting_Enabled.Value as canExecute as it requires the notifyExecuteChanged to be invoked after setting the value to update UI
-			return _command_reset_individual_settings;
 		}
 	}
 	public IAsyncRelayCommand Command_Restart_Server
@@ -377,43 +273,6 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 	static SettingsManager()
 	{ }
 	#region Methods
-	/// <summary>
-	///		Gets individual <see cref="Setting"/> value for <see cref="VideoStream"/>.
-	/// </summary>
-	/// <param name="setting"></param>
-	/// <param name="video_stream_id"></param>
-	/// <returns>Individual setting value.</returns>
-	public object? tryGetIndividualSettingValue(Setting setting, int video_stream_id)
-	{
-		if ((bool)Project_Is_Individual_Video_Stream_Setting_Enabled.Value && setting.individual_videoform_values != null && setting.individual_videoform_values.ContainsKey(video_stream_id))
-		{
-			return setting.individual_videoform_values[video_stream_id];
-		}
-		else
-		{
-			return setting.Value;
-		}
-	}
-	/// <summary>
-	///		Sets individual <see cref="Setting"/> value for <see cref="VideoStream"/>.
-	/// </summary>
-	/// <param name="setting"></param>
-	/// <param name="video_stream_id"></param>
-	/// <param name="value"></param>
-	/// <returns>Is value set.</returns>
-	public bool trySetIndividualSettingValue(Setting setting, int video_stream_id, object? value)
-	{
-		if ((bool)Project_Is_Individual_Video_Stream_Setting_Enabled.Value && setting.individual_videoform_values != null)
-		{
-			if (setting.individual_videoform_values.ContainsKey(video_stream_id))
-				setting.individual_videoform_values[video_stream_id] = value;
-			else
-				setting.individual_videoform_values.Add(video_stream_id, value);
-			return true;
-		}
-		else
-			return false;
-	}
 	/// <summary>
 	///		Sets <see cref="Setting"/> value from string
 	/// </summary>
@@ -438,8 +297,6 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 		}
 		else if (setting_group_name_setting[setting_group_name][setting_number_in_group].Value is BITMAP_STRETCH)
 			setting_group_name_setting[setting_group_name][setting_number_in_group].Value = Enum.Parse<BITMAP_STRETCH>(value_to_set);
-		else if (setting_group_name_setting[setting_group_name][setting_number_in_group].Value is NETWORK_PROTOCOL)
-			setting_group_name_setting[setting_group_name][setting_number_in_group].Value = Enum.Parse<NETWORK_PROTOCOL>(value_to_set);
 	}
 	/// <summary>
 	///		Reads <see cref="Setting"/> values from strings and sets them.
@@ -449,7 +306,7 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 	public bool readSettings(List<string> lines)
 	{
 		Regex regex_settings_group = new Regex("\\[([a-zA-Zа-яА-Я_]+)\\]"), regex_setting = new Regex("([a-zA-Zа-яА-Я0-9_]+)\\s*=\\s*(.+)"), regex_setting_individual = new Regex("(-?[0-9]+):");
-		Match match_settings_group = null, match_setting, match_setting_individual = null;
+		Match match_settings_group = null, match_setting;
 		int setting_number_in_group = 0;
 
 		for (int i = 0; i < lines.Count; i++)
@@ -467,9 +324,6 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 					AppManager.Logger.printMessage($"Обнаружена неизвестная настройка {lines[i]} в разделе {match_settings_group.Groups[1].Value}, пропуск. Рекомендуется перезаписать файл проекта, сохранив текущие настройки.", MESSAGE_SEVERITY.WARNING);
 					continue;
 				}
-				match_setting_individual = regex_setting_individual.Match(lines[i]);
-				if (match_setting_individual.Success)
-					setting_number_in_group--;
 				if (match_setting.Groups[1].Value != setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].title)
 				{
 					AppManager.Logger.printMessage($"Обнаружена неизвестная настройка {lines[i]} в разделе {match_settings_group.Groups[1].Value}, пропуск. Рекомендуется перезаписать файл проекта, сохранив текущие настройки.", MESSAGE_SEVERITY.WARNING);
@@ -478,21 +332,11 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 
 				try
 				{
-					if (match_setting_individual != null && match_setting_individual.Success)
-					{
-						int video_stream_id = Convert.ToInt32(match_setting_individual.Groups[1].Value);
-						object? setting_value = setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].Value;    //Creating a backup value
-						setSettingValueFromString(match_settings_group.Groups[1].Value, setting_number_in_group, match_setting.Groups[2].Value);
-						setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].individual_videoform_values.Add(video_stream_id, setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].Value);
-						setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].Value = setting_value;
-						match_setting_individual = null;
-					}
-					else
-					{
-						if (setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].individual_videoform_values != null)
-							setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].individual_videoform_values.Clear();  //Clear individual settings after new project was opened to avoid collisions
-						setSettingValueFromString(match_settings_group.Groups[1].Value, setting_number_in_group, match_setting.Groups[2].Value);
-					}
+
+					if (setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].individual_videoform_values != null)
+						setting_group_name_setting[match_settings_group.Groups[1].Value][setting_number_in_group].individual_videoform_values.Clear();  //Clear individual settings after new project was opened to avoid collisions
+					setSettingValueFromString(match_settings_group.Groups[1].Value, setting_number_in_group, match_setting.Groups[2].Value);
+
 				}
 				catch (FormatException)
 				{
@@ -560,16 +404,6 @@ internal sealed class SettingsManager : Model	//NOTE can't be made static becaus
 		foreach (var kv in setting_group_name_setting)
 			foreach (Setting setting in kv.Value)
 				setting.Value = setting.Value_Default;
-	}
-	/// <summary>
-	///		Resets individual project settings.
-	/// </summary>
-	public void resetIndividualSettings()
-	{
-		foreach (var kv in setting_group_name_setting)
-			foreach (Setting setting in kv.Value)
-				if (setting.individual_videoform_values != null)
-					setting.individual_videoform_values.Clear();
 	}
 	#endregion
 	#region Events

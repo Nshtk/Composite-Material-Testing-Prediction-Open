@@ -10,7 +10,7 @@ using System.Linq;
 
 using Microsoft.Win32;
 
-namespace FCGR.Common.Libraries.System;
+namespace FCGR.Common.Libraries.SSystem;
 
 /// <summary>
 ///		Receives this PC specs, OS and resources information.

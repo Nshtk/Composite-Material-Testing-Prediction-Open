@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 
-using FCGR.Server.GRPC.Services.General;
-using FCGR.Server.GRPC.Services.Streaming;
 using FCGR.Common.Libraries.Net.Networks;
-using FCGR.Server.GRPC.Services.Processing;
+using FCGR.Server.GRPC.Services.Testing;
 using FCGR.Common.Utilities;
 
 namespace FCGR.Server;
@@ -68,8 +66,6 @@ public class Program
 			}
 		}
 
-		//server_udp = new UDPServer(port_http, address_family);	//TODO make UDPServer listen on different port
-
 		builder.WebHost.ConfigureKestrel(options =>
 		{
 			IPAddress address = address_family==AddressFamily.InterNetworkV6 ? IPAddress.IPv6Loopback : IPAddress.Loopback;
@@ -89,14 +85,10 @@ public class Program
 			options.MaxSendMessageSize = TCPNetwork.Buffer_size_max;
 			options.MaxReceiveMessageSize = TCPNetwork.Buffer_size_max;
 		}));
-		builder.Services.AddSingleton(new ServiceUser());
-		builder.Services.AddSingleton(new ServiceFrameStreaming());
-		builder.Services.AddSingleton(new ServiceFrameProcessing());
+		builder.Services.AddSingleton(new ServiceTesting());
 
 		app = builder.Build(); 
-		app.MapGrpcService<ServiceUser>();
-		app.MapGrpcService<ServiceFrameStreaming>();
-		app.MapGrpcService<ServiceFrameProcessing>();
+		app.MapGrpcService<ServiceTesting>();
 		app.Run();
 	}
 }

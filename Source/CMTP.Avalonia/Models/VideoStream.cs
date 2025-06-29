@@ -2,22 +2,16 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.IO;
-using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 
 using FCGR.Common.Libraries;
-using FCGR.Common.Libraries.Processors;
 using FCGR.Common.Utilities;
-using FCGR.Common.Libraries.System;
 using CMTP.Avalonia.Managers;
-using CMTP.Avalonia.Views.Windows;
 using Avalonia.Threading;
 
 namespace CMTP.Avalonia.Models;
@@ -308,7 +302,7 @@ public sealed class VideoStream : Model, IDisposable
 				}
 			}
 		});
-		const int unsuccessfull_attempts_to_capture_frame_since_last_successfull_attempt_max=3;	//Hardcoded
+		const int unsuccessfull_attempts_to_capture_frame_since_last_successfull_attempt_max=3000;	//Hardcoded
 		int unsuccessfull_attempts_to_capture_frame_since_last_successfull_attempt=0;
 		Stopwatch stopwatch_frame_capture = new Stopwatch();
 		int fps_measure_cycle_duration_milliseconds = 500, fps_measure_cycle_iterations_count_current = 0, fps_measure_cycle_milliseconds_elapsed = 0;  //Calculates average fps for given cycle duration

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading;
-using System.Diagnostics;
 
 using Avalonia.Platform;
-using Avalonia.Input;
 using Avalonia.Controls;
 using Avalonia.Collections;
 using Avalonia.Media.Imaging;
@@ -13,19 +10,15 @@ using Avalonia.Threading;
 
 using CommunityToolkit.Mvvm.Input;
 
-using Emgu.CV;
+using FCGR.Common.Utilities;
+using FCGR.CommonAvalonia.MVVM;
 
 using CMTP.Avalonia.Views;
 using CMTP.Avalonia.Views.Controls.MainWindow;
 using CMTP.Avalonia.Views.Windows;
-using FCGR.CommonAvalonia.MVVM.Controls;
 using CMTP.Avalonia.ViewModels.Controls;
-using FCGR.Common.Utilities;
-using FCGR.Common.Libraries.System;
-using FCGR.CommonAvalonia.MVVM;
 using CMTP.Avalonia.Models;
 using CMTP.Avalonia.Managers;
-using Avalonia.VisualTree;
 
 namespace CMTP.Avalonia.ViewModels.Windows;
 
@@ -119,9 +112,7 @@ public sealed class ViewModelMainWindow : ViewModel
 					await Task.Delay(50);
                     Dispatcher.UIThread.Post(Command_Video_Form_Start_Forecasting.NotifyCanExecuteChanged);
                 },
-				() => 
-				{ 
-					return _view_model_video_form_selected != null && _view_model_video_form_selected.Video_Stream != null; });
+				() => { return _view_model_video_form_selected != null && _view_model_video_form_selected.Video_Stream != null && ProjectManager.Is_Project_Opened; });
 			return _command_start_testing;
 		}
 	}
@@ -132,7 +123,7 @@ public sealed class ViewModelMainWindow : ViewModel
 			if(_command_make_forecast == null)
 				_command_make_forecast = new AsyncRelayCommand(async () => 
 				{
-					await _view_model_video_form_selected.startTestForecasting();
+					await Task.Run(()=> _view_model_video_form_selected.startTestForecasting());
 				},
 				() => { 
 					return _view_model_video_form_selected!=null && _view_model_video_form_selected.Testing_Processor!=null; });
@@ -214,12 +205,11 @@ public sealed class ViewModelMainWindow : ViewModel
 
 		ProjectManager.projectOpened+=(sender, e) => Dispatcher.UIThread.Post(()=>
 		{
-			
 			ViewModelMainWindow view_model_main_window = AppManager.Windows[nameof(ViewModelMainWindow)].DataContext as ViewModelMainWindow;
 			view_model_main_window.Title = view_model_main_window.title_default + ProjectManager.Project_Directory.FullName;
 			AppManager.Logger.printMessage($"Проект {ProjectManager.Project_Title} открыт.", MESSAGE_SEVERITY.COMMON);
 			AppManager.Logger.logMessage($"Project path: {ProjectManager.Project_Directory.FullName}");
-
+			Command_Video_Form_Start_Testing.NotifyCanExecuteChanged();
 			OnPropertyChanged(nameof(Project_Manager_Is_Project_Opened_Wrapper));
 		});
 		ProjectManager.projectClosed+=(sender, e) =>

@@ -13,7 +13,7 @@ using Avalonia.Threading;
 using Avalonia.Controls;
 
 using FCGR.Common.Utilities;
-using FCGR.Common.Libraries.System;
+using FCGR.Common.Libraries.SSystem;
 using CMTP.Avalonia.Views.Controls.MainWindow;
 
 namespace CMTP.Avalonia.Managers;

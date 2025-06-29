@@ -15,18 +15,6 @@
 
 	<Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*">
 		<StackPanel Spacing="10">
-			<HeaderedContentControl Header="Пользователь (не используется)">
-				<Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,Auto">
-					<TextBlock Grid.Row="0" 
-							   Text="Логин:" VerticalAlignment="Center"/>
-					<TextBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" MinWidth="100"
-							 Text="{Binding Settings_Manager.Server_User_Login.Value, DataType={x:Type managers:AppManager}, Mode=TwoWay}"/>
-					<TextBlock Grid.Row="1" Grid.Column="0" Margin="0,10,0,0"
-							   Text="Email:" VerticalAlignment="Center"/>
-					<TextBox Grid.Row="1" Grid.Column="1" Margin="5,10,0,0"
-							 Text="{Binding Settings_Manager.Server_User_Email.Value, DataType={x:Type managers:AppManager}, Mode=TwoWay}}"/>
-				</Grid>
-			</HeaderedContentControl>
 			<HeaderedContentControl Header="Сервер">
 				<Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*">
 					<TextBlock Grid.Row="0" VerticalAlignment="Center"
@@ -41,20 +29,6 @@
 							  Content="Использовать локальный сервер" IsChecked="{Binding Settings_Manager.Server_Is_Local.Value, DataType={x:Type managers:AppManager}, Mode=TwoWay}"/>
 					<CheckBox Grid.Row="3" Grid.ColumnSpan="3" Margin="0,0,0,10"
 							  Content="Использовать IPv6" IsChecked="{Binding Settings_Manager.Server_Is_Using_IPV6.Value, DataType={x:Type managers:AppManager}, Mode=TwoWay}" ToolTip.Tip="{Binding Settings_Manager.Server_Is_Using_IPV6.Description, DataType={x:Type managers:AppManager}}"/>
-					<Expander Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,5"
-							IsExpanded="True">
-						<Expander.HeaderTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal" ToolTip.Tip="Использовать сервер для следующих функций программы">
-									<TextBlock Text="Функции"/>
-								</StackPanel>
-							</DataTemplate>
-						</Expander.HeaderTemplate>
-						<StackPanel Margin="18,0,0,0">
-							<CheckBox Content="Стриминг" IsChecked="{Binding Settings_Manager.Server_Is_Streaming_Enabled.Value, DataType={x:Type managers:AppManager}, Mode=TwoWay}" ToolTip.Tip="{Binding Settings_Manager.Server_Is_Streaming_Enabled.Description, DataType={x:Type managers:AppManager}}"/>
-							<CheckBox Content="Обработка" IsChecked="{Binding Settings_Manager.Server_Is_Processing_Enabled.Value, DataType={x:Type managers:AppManager}, Mode=TwoWay}" ToolTip.Tip="{Binding Settings_Manager.Server_Is_Processing_Enabled.Description, DataType={x:Type managers:AppManager}}"/>
-						</StackPanel>
-					</Expander>
 					<Button Grid.Row="5" Grid.ColumnSpan="2"
 							Content="Перезапустить сервер" Command="{Binding Settings_Manager.Command_Restart_Server, DataType={x:Type managers:AppManager}}"/>
 				</Grid>

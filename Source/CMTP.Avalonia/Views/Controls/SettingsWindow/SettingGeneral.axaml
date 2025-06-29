@@ -24,8 +24,6 @@
 			</HeaderedContentControl>
 			<HeaderedContentControl Header="Проект">
 				<StackPanel Spacing="10">
-					<CheckBox Content="Сохранять индивидуальные настройки для каждого видеопотока" IsChecked="{Binding Settings_Manager.Project_Is_Individual_Video_Stream_Setting_Enabled.Value, DataType={x:Type managers:AppManager}, Mode=TwoWay}}" ToolTip.Tip="{Binding Settings_Manager.Project_Is_Individual_Video_Stream_Setting_Enabled.Description, DataType={x:Type managers:AppManager}, Mode=TwoWay}}"/>
-					<Button Content="Сбросить индивидуальные настройки" Command="{Binding Settings_Manager.Command_Reset_Individual_Settings, DataType={x:Type managers:AppManager}}"/>
 					<Button Content="Восстановить настройки по-умолчанию" Command="{Binding Settings_Manager.Command_Restore_Default_Settings, DataType={x:Type managers:AppManager}}"/>
 				</StackPanel>
 			</HeaderedContentControl>

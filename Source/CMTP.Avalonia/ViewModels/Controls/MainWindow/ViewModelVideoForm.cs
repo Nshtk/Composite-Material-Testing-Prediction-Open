@@ -29,6 +29,8 @@ using CMTP.Avalonia.Models;
 using FCGR.Common.Libraries.Models.Processors.Testing;
 using ScottPlot.Avalonia;
 using System.Collections.Generic;
+using FCGR.Client.GRPC.Streaming;
+using FCGR.Client.Services.Testing;
 
 namespace CMTP.Avalonia.ViewModels.Controls;
 
@@ -39,6 +41,7 @@ public sealed class ViewModelVideoForm : ViewModel //NOTE nested types are not s
 	private SensorStream? _sensor_stream;
 	private Material _material = new();
 	private TestingProcessorAI? _testing_processor_ai;
+	private IServiceTesting _service_testing;
 	private VideoStream.FrameBuffer? frame_buffer_streaming;
 	private int _frames_count_received = 0;
 	private const int _Fps_measure_interval_milliseconds = 600;
@@ -379,7 +382,11 @@ public sealed class ViewModelVideoForm : ViewModel //NOTE nested types are not s
 	public async Task startTestProcessingAsync()
 	{
 		_cts_test_processing = new();
-        Testing_Processor = new($"Data{Path.DirectorySeparatorChar}Models{Path.DirectorySeparatorChar}");
+        Testing_Processor = new();
+		_service_testing = new GRPCServiceTesting(ServerManager.Server_Endpoint);
+		_testing_processor_ai.Forecast_Horizon = 1;
+		_testing_processor_ai.PropertyChanged += (o, e)=>Task.Run(async ()=>await _service_testing.sendTestingParameters(_testing_processor_ai));
+		await _service_testing.sendTestingParameters(_testing_processor_ai);
 		Sensor_Stream.start();
         Sensor_Stream.Testing_Machine.start();
 
@@ -392,30 +399,21 @@ public sealed class ViewModelVideoForm : ViewModel //NOTE nested types are not s
 		Plot_Sm.Plot.Add.Scatter(N_values, Sm_values);
 		Plot_SLbu.Plot.Add.Scatter(N_values, SLbu_values);
 
-		if (Sensor_Stream.Testing_Machine.id == 0)
-        {
-            await foreach (var sensor_data in _sensor_stream.streamDataAsync($"Data{Path.DirectorySeparatorChar}Datasets{Path.DirectorySeparatorChar}673{Path.DirectorySeparatorChar}", _cts_test_processing.Token))
-            {
-				N_values.Add((int)sensor_data.x[^1]);
-				area_values.Add(sensor_data.y[0]);
-				Sm_values.Add(sensor_data.y[1]);
-				SLbu_values.Add(sensor_data.y[2]);
-				_testing_processor_ai.addData(sensor_data);
-				Plot_Area.Plot.Axes.AutoScale();
-				Plot_Area.Refresh();
-				Plot_Sm.Plot.Axes.AutoScale();
-				Plot_Sm.Refresh();
-				Plot_SLbu.Plot.Axes.AutoScale();
-				Plot_SLbu.Refresh();
-			}
+		await foreach (var sensor_data in _sensor_stream.streamDataAsync($"Data{Path.DirectorySeparatorChar}Datasets{Path.DirectorySeparatorChar}673{Path.DirectorySeparatorChar}", _cts_test_processing.Token))
+		{
+			var sendDataAsync= _service_testing.sendDataAsync(sensor_data);
+			N_values.Add((int)sensor_data.x[^1]);
+			area_values.Add(sensor_data.y[0]);
+			Sm_values.Add(sensor_data.y[1]);
+			SLbu_values.Add(sensor_data.y[2]);
+			Plot_Area.Plot.Axes.AutoScale();
+			Plot_Area.Refresh();
+			Plot_Sm.Plot.Axes.AutoScale();
+			Plot_Sm.Refresh();
+			Plot_SLbu.Plot.Axes.AutoScale();
+			Plot_SLbu.Refresh();
+			await sendDataAsync;
 		}
-        else
-        {
-            await foreach (var sensor_data in _sensor_stream.streamDataFromMachineAsync(_cts_test_processing.Token))
-            {
-                _testing_processor_ai.addData(sensor_data);
-            }
-        }
     }
 	public async Task startTestForecasting()
 	{
@@ -432,7 +430,7 @@ public sealed class ViewModelVideoForm : ViewModel //NOTE nested types are not s
 
 		while (!_cts_test_forecasting.IsCancellationRequested)
 		{
-			var task=Task.Run(async ()=>_testing_processor_ai.calculateForecast(5, true, false, false, false));
+			var task = _service_testing.receiveForecast();
 			N_values.Clear();
 			area_values.Clear();
 			Sm_values.Clear();

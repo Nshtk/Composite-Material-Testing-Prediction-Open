@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Management;
 
-namespace FCGR.Common.Libraries.System;
+namespace FCGR.Common.Libraries.SSystem;
 /// <summary>
 ///		Holds information about USB device.
 /// </summary>
